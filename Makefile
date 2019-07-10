@@ -61,8 +61,12 @@ compatibility-docs: bin/generate-syscall-docs upstream/gvisor/bazel-bin/runsc/li
 	./upstream/gvisor/bazel-bin/runsc/linux_amd64_pure_stripped/runsc help syscalls -o json | ./bin/generate-syscall-docs -out ./content/docs/user_guide/compatibility/
 
 # Run a local content development server. Redirects will not be supported.
-server: all-upstream compatibility-docs
+devserver: all-upstream compatibility-docs
 	$(HUGO) server -FD --port 8080
+.PHONY: server
+
+server: website
+	cd public/ && go run main.go --custom-domain localhost
 .PHONY: server
 
 # Deploy the website to App Engine.

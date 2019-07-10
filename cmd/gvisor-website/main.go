@@ -41,6 +41,9 @@ var redirects = map[string]string{
 
 	// Deprecated, but links continue to work.
 	"/cl": "https://gvisor-review.googlesource.com",
+	// Redirect for old url
+	"/docs/user_guide/compatibility/amd64":  "/c/linux/amd64",
+	"/docs/user_guide/compatibility/amd64/": "/c/linux/amd64",
 }
 
 var prefixHelpers = map[string]string{
@@ -230,5 +233,6 @@ func main() {
 	registerRebuild(nil)
 	registerStatic(nil, *staticDir)
 
+	log.Printf("Listening on %s...", *addr)
 	log.Fatal(http.ListenAndServe(*addr, nil))
 }
